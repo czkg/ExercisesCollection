@@ -11,11 +11,14 @@
 #include <string>
 
 #include <opencv2/core/core.hpp>
+#include <opencv2/ml.hpp>
 
 struct MNISTDataset {
 	//TODO: add data fields as nessecary
 	//e.g. std::vector<cv::Mat> images;
 	//     std::vector<int>     labels;
+	std::vector<std::vector<float>> images;
+	std::vector<int> labels;
 };
 
 class MNISTClassifier {
@@ -44,10 +47,13 @@ public:
 	 * @param imagesFile The images file.
 	 * @returns The MNIST dataset struct populated.
 	 */
-	static MNISTDataset loadDatasetFromFiles(const std::string& labelsFile, const std::string& imagesFile);
+	static void loadDatasetFromFiles(const std::string& labelsFile, const std::string& imagesFile, MNISTDataset& data);
+
+	static int reverseInt(int i);
 
 private:
 	//... add member variables here
+	cv::Ptr<cv::ml::SVM> svm;
 };
 
 #endif /* MNISTCLASSIFIER_H_ */
